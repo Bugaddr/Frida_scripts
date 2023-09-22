@@ -1,0 +1,26 @@
+
+# GEN NO (GIVE PHNO WITH +91)
+export TMP1="$(echo '+918999106707' | base64 | sed 's|o=|==|g')"
+export PHNO="'{\"number\":\"$TMP1\"}'"
+
+# otp
+curl \
+-H 'appname: RJIL_JioTV' \
+-H 'os: android' \
+-H 'devicetype: phone' \
+-H 'content-type: application/json' \
+--compressed \
+-H 'user-agent: okhttp/3.14.9' \
+-X POST https://jiotvapi.media.jio.com/userservice/apis/v1/loginotp/send \
+-d "$PHNO"
+
+# Verify
+curl \
+-H 'appname: RJIL_JioTV' \
+-H 'os: android' \
+-H 'devicetype: phone' \
+-H 'content-type: application/json' \
+--compressed \
+-H 'user-agent: okhttp/3.14.9' \
+-X POST https://jiotvapi.media.jio.com/userservice/apis/v1/loginotp/verify \
+-d '{"number":"KzkxODk5OTEwNjcwNw==","otp":"741465","deviceInfo":{"consumptionDeviceName":"Redmi Note 4","info":{"type":"android","platform":{"name":"lineage_mido"},"androidId":"197bd7aff63ad055"}}}'
